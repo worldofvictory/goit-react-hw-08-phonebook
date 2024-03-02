@@ -1,0 +1,32 @@
+.LogoLink {
+    color: black; /*змінити*/
+    font-family: var(--primary-font);
+    font-size: 1.6rem;
+    font-weight: 600;
+    line-height: normal;
+    letter-spacing: -0.64px;
+
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.LogoIcon {
+    width: 32px;
+    height: 32px;
+}
+
+.LogoText {
+    color: black; /*змінити*/
+    font-family: var(--primary-font);
+    font-size: 1.6rem;
+    font-weight: 600;
+    line-height: normal;
+    letter-spacing: -0.64px;
+}
+
+@media (min-width: 768px) {
+    .LogoText {
+        font-size: 1.6rem;
+    }
+}

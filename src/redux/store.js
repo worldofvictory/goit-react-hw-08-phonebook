@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { contactsReducer } from '../redux/contacts/contactsSlice';
+import { setupListeners } from '@reduxjs/toolkit/query';
 import {
   persistStore,
   persistReducer,
@@ -11,19 +11,20 @@ import {
   REGISTER,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import { auteReducer } from './aute/contactsSlice';
+import { authReducer } from './auth/slice';
 
 
-const autePersistConfig = {
-  key: 'aute',
-  storage,
-  whitelist: ['token'],
-};
+const auth = persistReducer(
+  {
+    key: 'root',
+    storage,
+  },
+  authReducer
+);
 
 export const store = configureStore({
   reducer: {
-    auth: persistReducer(autePersistConfig, auteReducer),
-    contacts: contactsReducer,
+    auth,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
@@ -31,7 +32,8 @@ export const store = configureStore({
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
     }),
-  devTools: process.env.NODE_ENV === 'development',
 });
+
+setupListeners(store.dispatch);
 
 export const persistor = persistStore(store);
